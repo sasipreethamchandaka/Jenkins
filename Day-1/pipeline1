@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sasipreethamchandaka/terraform_aws.git'
+            }
+        }
+
+        stage('terraform init') {
+            steps {
+                dir('Basics_foundation-files'){
+                sh 'terraform init'
+            }
+        }
+        }
+
+        stage('terraform plan') {
+            steps {
+                dir('Basics_foundation-files'){
+                sh 'terraform plan'
+            }
+        }
+        }
+
+        stage('terraform apply') {
+            steps {
+                dir('Basics_foundation-files'){
+                sh 'terraform apply -auto-approve'
+            }
+            }
+        }
+    }
+}
