@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['apply', 'destroy'],
+            description: 'Select Terraform action'
+        )
+    }
+
+    stages {
+        stage('Terraform Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sasipreethamchandaka/Terraform_aws.git'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('Basics_foundation-files') {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                dir('Basics_foundation-files') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply/Destroy') {
+            steps {
+                dir('Basics_foundation-files') {
+                    sh "terraform ${params.ACTION} -auto-approve"
+                }
+            }
+        }
+    }
+}
