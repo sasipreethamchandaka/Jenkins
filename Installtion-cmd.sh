@@ -124,7 +124,7 @@ Jenkins is an open-source automation server used to manage CI/CD pipelines for b
 
 #-------java dependency for jenkins------------
 
-- sudo yum install java-17-amazon-corretto.x86_64
+- sudo yum install java-21-amazon-corretto.x86_64
 
 
 #------------jenkins install-------------
